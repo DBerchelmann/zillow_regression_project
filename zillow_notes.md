@@ -105,6 +105,22 @@ ORDER BY fips;
 
 ----
 
+This query brought in property landuse. This is important because it showed the properties there were single unit which is a requirment when making this regression model. After doing a .value_counts() in Jupyter, I saw that there were thousands of rows that may need to be deleted.
+
+```
+SELECT parcelid, propertylandusetypeid, propertylandusedesc, transactiondate, calculatedfinishedsquarefeet, bedroomcnt, bathroomcnt, buildingqualitytypeid, fips, regionidzip, yearbuilt, taxvaluedollarcnt, assessmentyear, taxamount
+FROM predictions_2017
+JOIN properties_2017 using (parcelid)
+JOIN propertylandusetype using (propertylandusetypeid)
+WHERE month(transactiondate) >= 05 and month(transactiondate) <= 08
+ORDER BY buildingqualitytypeid;
+
+```
+
+
+
+---
+
 <b>questions related to above query</b>
 
  - Is the rating for the building quality type id related to the assesed value? 
