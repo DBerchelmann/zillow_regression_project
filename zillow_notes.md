@@ -107,6 +107,8 @@ ORDER BY fips;
 
 This query brought in property landuse. This is important because it showed the properties there were single unit which is a requirment when making this regression model. After doing a .value_counts() in Jupyter, I saw that there were thousands of rows that may need to be deleted.
 
+<b>Also of note is that by joining the property landuse category, use lose the 16 FIPS rows that were showing NULL</b>
+
 ```
 SELECT parcelid, propertylandusetypeid, propertylandusedesc, transactiondate, calculatedfinishedsquarefeet, bedroomcnt, bathroomcnt, buildingqualitytypeid, fips, regionidzip, yearbuilt, taxvaluedollarcnt, assessmentyear, taxamount
 FROM predictions_2017
