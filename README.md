@@ -14,6 +14,14 @@ In here, you will find expanded information on this project including goals, how
 * <font color = red>Goal 1:</font> <i>Predict the values of single unit properties based on sold data from May-June of 2017</i>
 * <font color = red>Goal 2:</font> <i>Identify the county & state where the properties are located in addition to the distributino of property tax rates</i>
 
+-------------------
+<h3><u>Where Is Our Data Coming From?</u></h3>
+
+* This data is being pulled from a SQL database under the name 'Zillow'
+    * For this project, I am utilizing the 2017 properties and predictions tables along with the property landuse type table
+* The data can also be pulled from Kaggle.com 
+    * https://www.kaggle.com/c/zillow-prize-1/data
+
 ------------------
 <H3><u> Project Planning </u></H3>
 
@@ -34,10 +42,22 @@ Here is a snapshot of my project planning/setup on the morning of 4/14/21
 
 |   Feature      |  Data Type   | Description    |
 | :------------- | :----------: | -----------: |
-|  -- | --   | --    |
-| --   | -- | --|
-| --   | -- | --|
-| --| -- | --|
+|  parcelid | int64   | --    |
+| landuse_id     | float64 | --|
+| landuse_desc   | object | --|
+| last_sold_date  | object | --|
+|  total_sqft  | float64   | --    |
+| bedroom_quanity    | float64 | --|
+| bathroom_quanity   | float64 | --|
+| fips  | float64 | --|
+|  zip_code | float64   | --    |
+| year_built    | float64 | --|
+| tax_assesed_value   | float64 | --|
+| latitude  | float64 | --|
+|  longitude  | float64   | --    |
+| tax_assess_yr    | float64 | --|
+| property_tax   | float64 | --|
+| age_of_home  | int64 | --|
 
 
 
