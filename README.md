@@ -21,6 +21,7 @@ In here, you will find expanded information on this project including goals, how
     * For this project, I am utilizing the 2017 properties and predictions tables along with the property landuse type table
 * The data can also be pulled from Kaggle.com 
     * https://www.kaggle.com/c/zillow-prize-1/data
+* This repository also has a CSV of the data available as well
 
 ------------------
 <H3><u> Project Planning </u></H3>
@@ -42,23 +43,25 @@ Here is a snapshot of my project planning/setup on the morning of 4/14/21
 
 |   Feature      |  Data Type   | Description    |
 | :------------- | :----------: | -----------: |
-|  parcelid | int64   | --    |
-| landuse_id     | float64 | --|
-| landuse_desc   | object | --|
-| last_sold_date  | object | --|
-|  total_sqft  | float64   | --    |
-| bedroom_quanity    | float64 | --|
-| bathroom_quanity   | float64 | --|
-| fips  | float64 | --|
-|  zip_code | float64   | --    |
-| year_built    | float64 | --|
-| tax_assesed_value   | float64 | --|
-| latitude  | float64 | --|
-|  longitude  | float64   | --    |
-| tax_assess_yr    | float64 | --|
-| property_tax   | float64 | --|
-| age_of_home  | int64 | --|
-
+|  parcelid | int64   | Unique parcel identifier    |
+| landuse_id     | float64 | Identifier for landuse type|
+| landuse_desc   | object | Describes the type of landuse|
+| last_sold_date  | object |transaction date of when property last sold|
+|  total_sqft  | float64   | Total livable square footage    |
+| bedroom_quanity    | float64 | count of bedrooms|
+| bathroom_quanity   | float64 | count of bathrooms|
+| fips  | object | Federal Information Processing Code (county code)|
+|  zip_code | object   | 5 digit code used by US Postal Service    |
+| year_built    | object | year home was built|
+| tax_assesed_value   | float64 | total value of home established by taxing authority|
+| latitude  | float64 | geographic coordinate that specifies the north–south position |
+|  longitude  | float64   | geographic coordinate that specifies the east-west position     |
+| tax_assess_yr    | float64 | The most recent year property taxes were assessed|
+| property_tax   | float64 | ad valorem tax on the value of a property.|
+| age_of_home  | int64 | age of home as of today's date in years|
+| tax_rate    | float64 | This is property tax / tax_assessed_value|
+| baths_pers_qft   | float64 | numbers of baths per sqft|
+| beds_pers_qft  | float64| number of beds per sqft|
 
 
 
@@ -66,37 +69,51 @@ Here is a snapshot of my project planning/setup on the morning of 4/14/21
 -------------------
   <h3><u>Hypothesis and Questions</u></h3>
 
-- This section will be developed
- 
+- Is there a relationship between bathroom quantity and total sqft?
+- Is there a relationship between bathroom quantity and tax appraised value?
+- Is there is a relationship between total sqft and tax appraised value?
+- Is there is a relationship between latitude and tax appraised value?
+- Is there is a relationship between longitude and tax appraised value?
+- Let's look into bathrooms per sqft and see if there is a difference between Los Angeles County and Orange County.
+
+<h5> The questions above will be answered using correlation tests while the last one comparing the means of two subgroups will be achived through a T-Test.</h5>
+
 --------------------
  <h3><u>How To Recreate This Project</u></h3>
  
  To recreate this project you will need use the following files:
  
- acquire.py
- prepare.py
+ wrangle.py
+ evaluate.py
  explore.py
- model.py
+ 
+ Your target variable will be tax_assessed_value which is defined in the above data dictionary. Please visit my final notebook to see this variable being used.
  
  <b>Step 1.</b> Import all necessary libraries to run functions. These can be found in each corresponding .py file
  
  <b>Step 2.</b> Use acquire.py to help pull data from your SQL database. You will need to have your own env.py file with your login information to be able to cpnnect and pull fomr your SQL program.
  
- <b>Step 3.</b> Use the clean_zillow(df) function followed by the train_validate_test_split(df, seed=123) to prep the data.
+ <b>Step 3.</b> To see the the cleaned data set before training do the following:
+ 
+```df = wrangle_zillow()``` 
+
+After you have gotten to know the data set, run the following to gather the train, validate, test data
+
+```train, validate, X_train, y_train, X_validate, y_validate, X_test, y_test = train_validate_test(df, 'tax_assessed_value')```
+    
  
  <b>Step 4.</b> Verify that your data has been prepped using df.head()
  
- <b>Step 5.</b>. Enter the explore phase using the different univariate, bivariate, and multivariate functions from the explore.py file. This is also a great time to use different line plots, swarm plots, and bar charts. The associated libraries to make the charts happen are from matplotlib, seaborn, scipy, and sklearn
+ <b>Step 5.</b>. Enter the explore phase using the different univariate, bivariate, and multivariate functions from the explore.py file. This is also a great time to use different line plots, swarm plots, and bar charts. The associated libraries to make the charts happen are from matplotlib, seaborn, scipy, plotly and sklearn
  
- <b>Step 6.</b> Evaluate and model the data using different classification algorithms. 
+ <b>Step 6.</b> Evaluate and model the data using different regression algorithms. 
          
- ```
- { 
-TBD
- }
- ```
+* Linear Regression
+* Lasso Lars
+* Tweedie Regressor
+* Polynomial Regressor (using a 2nd degree)
  
- <b>Step 7.</b> After you have found a model that works, you can export a CSV with your predictions and probablities using the get_model() function from model.py.
+<b>Step 7.</b> After you have found a model that works, test that model against out of sample data using the function in my notebook.
  
  For a more detailed look, please visit my final notebook for zillow regression for further assistance.
  
