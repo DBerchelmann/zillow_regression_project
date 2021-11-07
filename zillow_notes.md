@@ -123,6 +123,25 @@ ORDER BY buildingqualitytypeid;
 
 ---
 
+<b> filtering based on propertylandusetypid and unit count</b>
+
+```
+SELECT parcelid, propertylandusetypeid, unitcnt, propertylandusedesc, 
+                 transactiondate, calculatedfinishedsquarefeet, bedroomcnt,
+                 bathroomcnt, fips, regionidzip, yearbuilt, taxvaluedollarcnt,
+                 assessmentyear, taxamount 
+                 FROM predictions_2017 
+                 JOIN properties_2017 using (parcelid) 
+                 JOIN propertylandusetype using (propertylandusetypeid) 
+                 WHERE month(transactiondate) >= 05 and month(transactiondate) <= 08 
+                 AND propertylandusetypeid > 250
+                 AND propertylandusetypeid < 280 
+                 AND propertylandusetypeid != 270 
+                 AND propertylandusetypeid != 271
+                 OR unitcnt = 1
+                 ORDER BY unitcnt DESC;
+```
+
 <b>questions related to above query</b>
 
  - Is the rating for the building quality type id related to the assesed value? 
@@ -136,3 +155,9 @@ ORDER BY buildingqualitytypeid;
  
  
  ---
+ 
+ <h4> Cleaning Data Thoughts </h4>
+ 
+ I've narrowed outliers but more work can be done
+ 
+ With over 60,000 rows, should I drop properties that are over 2,000,000?
